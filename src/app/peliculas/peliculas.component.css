@@ -1,0 +1,25 @@
+.anyo {
+    font-weight: 100;
+}
+
+.argumento {
+    font-weight: 300;
+}
+
+.img-pelicula {
+    border-radius: 3%;
+    object-fit: cover;
+    width: 100%;
+}
+
+.desc-box {
+    margin-top: 35px;
+}
+
+.overview {
+    margin-top: 50px;
+}
+
+.cast-row {
+    margin-top: 40px;
+}

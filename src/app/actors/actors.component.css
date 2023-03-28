@@ -1,0 +1,26 @@
+.card {
+    width: 180px;
+    border-radius: 0%;
+    border: none;
+    background-color: black;
+}
+
+.card-img-top {
+    border-radius: 0%;
+    object-fit: cover;
+    height: 250px;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    color: grey;
+    text-decoration: underline;
+}
+
+.desc-personaje {
+    font-weight: 100;
+}

@@ -1,0 +1,27 @@
+<div class="container row">
+
+<section class="shearch col-3">
+  <app-buscador></app-buscador>
+</section>
+<section class="row col-9">
+  <div class="col-5">
+    <img class="actor-img"
+      src="{{ actor.imagen }}"
+      alt="{{ actor.nombre }} image"
+    />
+  </div>
+  <div class="desc-box col-7">
+    <div class="row">
+      <h2>Nombre: {{ actor.nombre }}</h2>
+      <p *ngIf="!actor.vivo; esle elseBlock">
+        Edad: {{ actor.edad }} (fallecido)
+      </p>
+      <ng-template #elseBlock>Edad: {{ actor.edad }}</ng-template>
+      <p>Nacionalidad: {{ actor.nacionalidad }}</p>
+    </div>  
+    <div class="row">
+      <app-player [video]="actor.clip"></app-player>
+    </div>  
+  </div>
+</section>
+</div>
