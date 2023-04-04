@@ -12,6 +12,9 @@ import { FormsModule } from '@angular/forms';
 import { ActorsComponent } from './actors/actors.component';
 import { PeliculasComponent } from './peliculas/peliculas.component';
 import { ActorDetailsComponent } from './actor-details/actor-details.component';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 
 
 
@@ -30,6 +33,8 @@ import { ActorDetailsComponent } from './actor-details/actor-details.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => getFirestore()),
   ],
   providers: [
     ActoresService,
