@@ -40,7 +40,9 @@ export class PeliculasService {
 
   //update pelicula
   update(pelicula: Pelicula){
+    console.log(pelicula.id);
     const documento= doc(this.firestore, 'peliculas/${pelicula.id}');
+    console.log(documento);
     return updateDoc(documento, {pelicula});
   }
 

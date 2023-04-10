@@ -6,25 +6,59 @@
             </div>
         </section>
         <div class="col-9">
-            <div  *ngFor=" let pelicula of peliculas" >
-                <div class="img-box row">
-                    <div class="float-left col-5" >
-                        <img class="img-pelicula" src={{pelicula.image}} alt="Pelicula 1 image">
-                    </div>
-                    
-                    <div class="desc-box col-7">
-                    <h1>{{pelicula.titulo}} <span class="anyo">({{pelicula.anyo}})</span></h1>
-                    <p>Acción, Drama - {{pelicula.duracionHoras}}h {{pelicula.duracionMinutos}}m </p>
-                    <h3 class="overview">Overview</h3>
-                    <p class="argumento">{{pelicula.argumento}}</p>
-                    </div>
-                </div>            
-                <section class="row cast-row">
-                    <h3>Cast</h3>
-                    <app-actors class="col-2 m-4" *ngFor="let personaje of pelicula.personajes" [personaje]="personaje"></app-actors>
-                </section>
-                <br><hr>
+            <div *ngIf="!editar; else edit">
+                <div  *ngFor=" let pelicula of peliculas" >
+                    <div class="img-box row">
+                        <div class="float-left col-5" >
+                            <img class="img-pelicula" src={{pelicula.image}} alt="Pelicula 1 image">
+                        </div>
+                        
+                        <div class="desc-box col-7">
+                        <h1>{{pelicula.titulo}} <span class="anyo">({{pelicula.anyo}})</span></h1>
+                        <p>Acción, Drama - {{pelicula.duracionHoras}}h {{pelicula.duracionMinutos}}m </p>
+                        <h3 class="overview">Overview</h3>
+                        <p class="argumento">{{pelicula.argumento}}</p>
+                        </div>
+                        <button (click)="editPelicula(pelicula)">Editar</button>
+                    </div>            
+                    <section class="row cast-row">
+                        <h3>Cast</h3>
+                        <app-actors class="col-2 m-4" *ngFor="let personaje of pelicula.personajes" [personaje]="personaje"></app-actors>
+                    </section>
+                    <br><hr>
+                </div>
             </div>
+            <ng-template #edit>
+                <div  *ngFor=" let pelicula of peliculas" >
+                    <div class="img-box row">
+                        <div class="float-left col-5" >
+                            <img class="img-pelicula" src={{pelicula.image}} alt="Pelicula 1 image">
+                        </div>
+                        
+                        <div class="desc-box col-7">
+                        <label> Titulo:</label>
+                        <input type="text" placeholder="{{pelicula.titulo}}" [(ngModel)]="tituloForm" name="tituloForm">
+                        <label >Año</label>
+                        <input type="number" placeholder="{{pelicula.anyo}}" [(ngModel)]="anyoForm" name="anyoForm">
+                        <label >Duaracion horas</label>
+                        <input type="number" placeholder="{{pelicula.duracionHoras}}" [(ngModel)]="duracionHForm" name="duracionHForm">
+                        <br>
+                        <label>Duracion minutos</label> 
+                        <input type="number" placeholder="{{pelicula.duracionMinutos}}" [(ngModel)]="duracionMForm" name="duracionMForm">
+                        <h3 class="overview">Overview</h3>
+                        <textarea [(ngModel)]="overviewForm" name="overviewForm" id="overviewForm" cols="30" rows="10" >
+                          
+                        </textarea>
+                        </div>
+                        <button (click)="savePelicula(pelicula)">Guardar</button>
+                    </div>            
+                    <section class="row cast-row">
+                        <h3>Cast</h3>
+                        <app-actors class="col-2 m-4" *ngFor="let personaje of pelicula.personajes" [personaje]="personaje"></app-actors>
+                    </section>
+                    <br><hr>
+                </div>
+            </ng-template>
         </div>
 </div>
 </div>

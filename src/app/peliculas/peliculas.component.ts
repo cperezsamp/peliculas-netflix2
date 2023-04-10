@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';;
 import { Pelicula } from '../models/pelicula';
 import { PeliculasService } from '../peliculas.service';
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-peliculas',
@@ -9,6 +11,12 @@ import { PeliculasService } from '../peliculas.service';
 })
 export class PeliculasComponent implements OnInit {
   peliculas: Pelicula[];
+  editar: Boolean = false;
+  tituloForm: string;
+  anyoForm: number;
+  duracionHForm: number;
+  duracionMForm: number;
+  overviewForm: string;
   //peliculas: Observable<Pelicula[]>;
 
   constructor(private peliculasService: PeliculasService) {
@@ -24,8 +32,18 @@ export class PeliculasComponent implements OnInit {
     this.peliculasService.getAll().subscribe(
      peliculas => {
       this.peliculas= peliculas;
+      console.log(this.peliculas);
      }
     )
+  }
+
+  editPelicula(pelicula: Pelicula): void{
+    this.editar= !this.editar;
+    this.overviewForm= pelicula.argumento;
+  }
+
+  savePelicula(pelicula: Pelicula) :void{
+    this.peliculasService.update(pelicula);
   }
 
 }
