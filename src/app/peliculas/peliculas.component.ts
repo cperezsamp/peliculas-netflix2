@@ -17,14 +17,14 @@ export class PeliculasComponent implements OnInit {
   duracionHForm: number;
   duracionMForm: number;
   overviewForm: string;
-  //peliculas: Observable<Pelicula[]>;
+  imageForm: string;
+
 
   constructor(private peliculasService: PeliculasService) {
   }
 
   getPeliculas(): void {
-    //this.peliculas = this.peliculasService.peliculas;
-    //this.peliculas = this.peliculasService.getAll();
+    
   }
 
   ngOnInit(): void {
@@ -32,17 +32,35 @@ export class PeliculasComponent implements OnInit {
     this.peliculasService.getAll().subscribe(
      peliculas => {
       this.peliculas= peliculas;
-      console.log(this.peliculas);
-     }
+      }
     )
   }
 
   editPelicula(pelicula: Pelicula): void{
     this.editar= !this.editar;
     this.overviewForm= pelicula.argumento;
+    this.tituloForm= pelicula.titulo;
+    this.anyoForm= pelicula.anyo;
+    this.duracionHForm= pelicula.duracionHoras;
+    this.duracionMForm= pelicula.duracionMinutos;
   }
 
   savePelicula(pelicula: Pelicula) :void{
+    if(pelicula.titulo != this.tituloForm){
+      pelicula.titulo= this.tituloForm;
+    }
+    if(pelicula.duracionHoras != this.duracionHForm){
+      pelicula.duracionHoras= this.duracionHForm;
+    }
+    if(pelicula.duracionMinutos != this.duracionMForm){
+      pelicula.duracionMinutos= this.duracionMForm;
+    }
+    if(pelicula.anyo != this.anyoForm){
+      pelicula.anyo= this.anyoForm;
+    }
+    if(pelicula.argumento != this.overviewForm){
+      pelicula.argumento= this.overviewForm;
+    }
     this.peliculasService.update(pelicula);
   }
 

@@ -75,7 +75,7 @@
               "browserTarget": "peliculas-netflix:build:development"
             }
           },
-          "defaultConfiguration": "development",
+          "defaultConfiguration": "development"
           
         },
         "extract-i18n": {

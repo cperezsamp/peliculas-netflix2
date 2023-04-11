@@ -29,21 +29,20 @@ export class PeliculasService {
 
   //obtener una pelicula por su id
   getOneById(pelicula: Pelicula){
-    return doc(this.firestore, 'peliculas/${pelicula.id}');
+    return doc(this.firestore, `peliculas/${pelicula.id}`);
   }
 
   //eliminar una pelicula
   delete(pelicula: Pelicula){
-    const documento= doc(this.firestore, 'peliculas/${pelicula.id}'); //indicamos el documento con el objeto doc. Este recibe como argumento el objeto firestore y una cadena formada por "nombre coleccion/identificador documento"
+    const documento= doc(this.firestore, `peliculas/${pelicula.id}`); //indicamos el documento con el objeto doc. Este recibe como argumento el objeto firestore y una cadena formada por "nombre coleccion/identificador documento"
     return deleteDoc(documento); //eliminamos el documento anterior con el objeto deleteDoc
   }
 
-  //update pelicula
+  //update pelicula, OK, ojo a las comillas, son acentos
   update(pelicula: Pelicula){
-    console.log(pelicula.id);
-    const documento= doc(this.firestore, 'peliculas/${pelicula.id}');
-    console.log(documento);
-    return updateDoc(documento, {pelicula});
+    const documento= doc(this.firestore, `peliculas/${pelicula.id}`); 
+    console.log(pelicula);
+    return updateDoc(documento, { ...pelicula});
   }
 
   //PARA FUNCIONAR EN LOCAL
