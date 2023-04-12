@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { addDoc, collection, collectionData, deleteDoc, doc, Firestore, updateDoc } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
 import { Actor } from './models/actor';
 
 @Injectable({
@@ -6,6 +8,47 @@ import { Actor } from './models/actor';
 })
 export class ActoresService {
 
+  //CON FIREBASE
+  /*
+  constructor(private firestore: Firestore){  //inyectar firestore para utilizarlo
+  
+  }
+
+  //añadir peliculas
+  add(actor: Actor){
+    const coleccion= collection(this.firestore, 'actores');  //utilizamos el objeto collection para indicar la coleccion, recibe como argumento el objeto firestore inyectado y el nombre del documento
+    return addDoc(coleccion, actor); //con el objeto addDoc guardamos en la base de datos, recibe el nombre de la coleccion y el objeto a guardar
+  }
+
+  //obtener peliculas
+  getAll() :Observable<Actor[]>{  //nos devolvera un observable que esta mirando el estado de la base de datos.
+    const coleccion= collection(this.firestore, 'actores'); //indicamos la colecion
+    return collectionData(coleccion,  { idField: 'id' } ) as Observable<Actor[]>;  //utilizamos el objeto collectionData que recupera datos, le indicamos la coleccion 
+    // y el campo por el que vamos a ordenar la busqueda, en esete caso id, finalment lo casteamos al tipo Observable que hemos indicado que retorna esta funcion.
+  } 
+
+  //obtener una pelicula por su id
+  getOneById(actor: Actor){
+    return doc(this.firestore, `actores/${actor.id}`);
+  }
+
+  //eliminar una pelicula
+  delete(actor: Actor){
+    const documento= doc(this.firestore, `actores/${actor.id}`); //indicamos el documento con el objeto doc. Este recibe como argumento el objeto firestore y una cadena formada por "nombre coleccion/identificador documento"
+    return deleteDoc(documento); //eliminamos el documento anterior con el objeto deleteDoc
+  }
+
+  //update pelicula, OK, ojo a las comillas, son acentos
+  update(actor: Actor){
+    const documento= doc(this.firestore, `actores/${actor.id}`); 
+    console.log(actor);
+    return updateDoc(documento, { ...actor});
+  }
+*/
+
+
+
+  //EN LOCAL
 
   actores: Actor[] = [];
 

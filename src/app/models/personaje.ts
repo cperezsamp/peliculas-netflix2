@@ -4,6 +4,7 @@ export class Personaje{
     actor: Actor;
     nombrePersonaje: string;
     descripcion: string;
+    id: number;
 
     constructor(actor: Actor, nombrePersonaje: string, descripcion: string){
         this.actor= actor;

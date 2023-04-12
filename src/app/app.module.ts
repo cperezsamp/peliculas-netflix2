@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ActoresService } from './actores.service';
 import { PeliculasService } from './peliculas.service';
+import { PersonajesService } from './personajes.service';
 import { PlayerComponent } from './player/player.component';
 import { BuscadorPipe } from './buscador.pipe';
 import { BuscadorComponent } from './buscador/buscador.component';
@@ -38,7 +39,8 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
   ],
   providers: [
     ActoresService,
-    PeliculasService
+    PeliculasService,
+    PersonajesService
 
   ],
   bootstrap: [AppComponent]
