@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActoresService } from '../actores.service';
 import { Personaje } from '../models/personaje';
+import { PersonajesService } from '../personajes.service';
+import { Actor } from '../models/actor';
+import { Pelicula } from '../models/pelicula';
 
 
 @Component({
@@ -9,12 +12,36 @@ import { Personaje } from '../models/personaje';
   styleUrls: ['./actors.component.css']
 })
 export class ActorsComponent implements OnInit {
-  @Input() personaje: Personaje;
+  @Input() pelicula: Pelicula;
 
-  constructor(private actoresService: ActoresService) {
+  personajes: Personaje[];
+  //actores: Actor[];  //no creo que aqui necesite los actores
+  personajesPelicula: Personaje[];
+  test: string[];
+  
+
+  constructor(private actoresService: ActoresService, private personajesService: PersonajesService) {
+    this.loadPersonajes();
   }
 
   ngOnInit(): void {
+    
+  }
+
+  loadPersonajes(){
+    this.personajesService.getAll().subscribe(
+      personajes => {
+        this.personajes= personajes;
+       }
+    )
+  }
+  searchPersonajes(pelicula: Pelicula){
+    this.loadPersonajes();
+    for( let personaje of this.personajes){
+      if(personaje.pelicula.id == pelicula.id){
+        this.personajesPelicula.push(personaje);
+      }
+    }
   }
 
 }

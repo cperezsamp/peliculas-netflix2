@@ -1,7 +1,9 @@
 import { Actor } from './actor';
+import { Pelicula } from './pelicula';
 
 export class Personaje{
     actor: Actor;
+    pelicula: Pelicula;
     nombrePersonaje: string;
     descripcion: string;
     id: number;

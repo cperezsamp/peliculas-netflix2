@@ -9,7 +9,7 @@ import { Actor } from './models/actor';
 export class ActoresService {
 
   //CON FIREBASE
-  /*
+  
   constructor(private firestore: Firestore){  //inyectar firestore para utilizarlo
   
   }
@@ -44,7 +44,7 @@ export class ActoresService {
     console.log(actor);
     return updateDoc(documento, { ...actor});
   }
-*/
+
 
 
 
@@ -52,7 +52,7 @@ export class ActoresService {
 
   actores: Actor[] = [];
 
-  constructor() {
+  /*constructor() {
 
     this.actores.push(new Actor(1, "Clark Gable", 59, "clip.mp4", "estadounidense", false, "assets/images/actors/clarkgable.jpeg"));
     this.actores.push(new Actor(2, "Vivien Leigh", 53, "clip2.mp4", "britanica", false, "assets/images/actors/vivienleight.jpeg"));
@@ -67,7 +67,7 @@ export class ActoresService {
     this.actores.push(new Actor(11, "Jon Hamm", 52, "clip3.mp4", "estadounidense", true, "assets/images/actors/jonhamm.jpeg"));
     this.actores.push(new Actor(12, "Jennifer Connelly", 52, "clip4.mp4", "estadounidense", true, "assets/images/actors/jenniferconnelly.jpeg"));
 
-  }
+  }*/
 
   findByName(name: string): Actor {
     return this.actores.find(element => element.nombre === name) as Actor

@@ -1,9 +1,23 @@
 
-    <div class="card">
+<div *ngFor="let personaje of personajes">
+    <div *ngIf=" personaje.pelicula.id == pelicula.id">
+        <div class="card">
+            <img class="card-img-top"src="{{ personaje.actor.imagen }}" alt="Pelicula 1 image">      
+            <div class="card-body" >
+                <h6>  <a href="/actor/{{ personaje.actor.id }}">{{ personaje.actor.nombre }}</a> as {{personaje.nombrePersonaje}}</h6>
+                <p class="desc-personaje"> {{personaje.descripcion.charAt(0).toUpperCase() + personaje.descripcion.slice(1)}}</p>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+   <!-- <div class="card">
         <img class="card-img-top"src={{personaje.actor.imagen}} alt="Pelicula 1 image">      
         <div class="card-body" >
             <h6>  <a href="/actor/{{ personaje.actor.id }}">{{personaje.actor.nombre}}</a> as {{personaje.nombrePersonaje}}</h6>
             <p class="desc-personaje"> {{personaje.descripcion.charAt(0).toUpperCase() + personaje.descripcion.slice(1)}}</p>
         </div>
         
-    </div>
+    </div>-->
+

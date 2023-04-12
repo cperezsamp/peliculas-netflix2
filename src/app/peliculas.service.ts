@@ -67,7 +67,7 @@ export class PeliculasService {
     this.peliculas[1].addPersonaje(new Personaje(actores.findByName("James Caan"), "Santino Corleone", "Hijo mayor del padrino"));
 
     this.peliculas.push(new Pelicula("Lo que el viento se llevo", 238, 1939, "assets/images/films/loqueelvientosellevo.jpeg", "Francis Ford Coppola", "En vísperas del inicio de la guerra de Secesión en 1861, la joven Scarlett O'Hara vive con sus padres y dos hermanas en «Tara», la plantación de algodón de su familia en Georgia. Scarlett se entera de que Ashley Wilkes, del que está enamorada en secreto, se va a casar con su prima Melanie Hamilton y que el compromiso será anunciado al día siguiente en una barbacoa que se va a celebrar en la casa de Ashley, la cercana plantación «Los doce robles»."))
-    this.peliculas[2].addPersonaje(new Personaje(actores.findByName("Clark Gable"), "Rhett Butler ", "visitante de Charleston"));
+    this.peliculas[2].addPersonaje(new Personaje(actores.findByName("Clark Gable"), "Rhett Butler", "visitante de Charleston"));
     this.peliculas[2].addPersonaje(new Personaje(actores.findByName("Vivien Leigh"), "Scarlett O'Hara", "hija"));
     this.peliculas[2].addPersonaje(new Personaje(actores.findByName("Leslie Howard"), "Ashley Wilkes", "hijo"));
     this.peliculas[2].addPersonaje(new Personaje(actores.findByName("Olivia de Havilland"), "Melanie Hamilton", "prima"));
