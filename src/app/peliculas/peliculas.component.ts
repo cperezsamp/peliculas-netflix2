@@ -36,8 +36,12 @@ export class PeliculasComponent implements OnInit {
     )
   }
 
-  editPelicula(pelicula: Pelicula): void{
+  edit(): void{
     this.editar= !this.editar;
+  }
+
+  editPelicula(pelicula: Pelicula): void{
+    this.edit();
     this.overviewForm= pelicula.argumento;
     this.tituloForm= pelicula.titulo;
     this.anyoForm= pelicula.anyo;
