@@ -16,6 +16,8 @@ import { ActorDetailsComponent } from './actor-details/actor-details.component';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { UploadfileComponent } from './uploadfile/uploadfile.component';
+import { provideStorage,getStorage } from '@angular/fire/storage';
 
 
 
@@ -29,6 +31,7 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
     ActorsComponent,
     PeliculasComponent,
     ActorDetailsComponent,
+    UploadfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,6 +39,7 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
     FormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
+    provideStorage(() => getStorage()),
   ],
   providers: [
     ActoresService,

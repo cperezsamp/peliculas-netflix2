@@ -21,12 +21,13 @@ export class ActorsComponent implements OnInit {
   
 
   constructor(private actoresService: ActoresService, private personajesService: PersonajesService) {
+    
+  }
+
+  ngOnInit(): void{
     this.loadPersonajes();
   }
 
-  ngOnInit(): void {
-    
-  }
 
   loadPersonajes(){
     this.personajesService.getAll().subscribe(
@@ -35,8 +36,8 @@ export class ActorsComponent implements OnInit {
        }
     )
   }
+
   searchPersonajes(pelicula: Pelicula){
-    this.loadPersonajes();
     for( let personaje of this.personajes){
       if(personaje.pelicula.id == pelicula.id){
         this.personajesPelicula.push(personaje);
