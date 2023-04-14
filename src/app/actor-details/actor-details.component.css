@@ -6,3 +6,7 @@
 .desc-box {
     margin-top: 35px;
 }
+
+.container {
+    width: 100vh;
+}

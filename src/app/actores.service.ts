@@ -28,11 +28,10 @@ export class ActoresService {
   }
 
   //obtener un actor por su id
-  async getOneById(actor: Actor) {
-    const docRef = doc(this.firestore, 'actores', `${actor.id}`);
+  async findOneById(id: string) {
+    const docRef = doc(this.firestore, 'actores', id);
     const docSnap = await getDoc(docRef);
     const data = docSnap?.data()
-    console.log('data', data)
     return data
   }
 
@@ -77,18 +76,18 @@ export class ActoresService {
     return this.actores.find(element => element.nombre === name) as Actor
   }
 
-  //esto no devuelve nada
-  findOneById(id: number): Actor {
-    /*for(let i= 0; i<this.actores.length;i++){
-      if(this.actores[i].id=== id){
-        return this.actores[i];
+  /*   //esto no devuelve nada
+    findOneById(id: string): Actor {
+      for(let i= 0; i<this.actores.length;i++){
+        if(this.actores[i].id=== id){
+          return this.actores[i];
+        }
       }
-    }
-    return null as Actor;*/
-
-    console.log(id);
-    console.log(this.actores.find(element => element.id === id) as Actor);
-    return this.actores.find(element => element.id == id) as Actor;
-  }
+      return null as Actor;
+  
+      console.log('actor id', id);
+      console.log(this.actores.find(element => element.id === id) as Actor);
+      return this.actores.find(element => element.id == id) as Actor;
+    } */
 
 }

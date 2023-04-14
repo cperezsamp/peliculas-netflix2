@@ -18,7 +18,7 @@ export class ActorsComponent implements OnInit {
   actores: Actor[];
   personajesPelicula: Personaje[];
   test: string[];
-  isVisible: Boolean;
+  isVisible: Boolean; // TODO: No funciona, hay que ajustar para que cada personaje tenga su valor isVisible
 
   constructor(private actoresService: ActoresService, private personajesService: PersonajesService) {
   }
@@ -55,19 +55,13 @@ export class ActorsComponent implements OnInit {
     } */
 
 
-  async onClick(personaje: Personaje) {
+  onClick(personaje: Personaje) {
     this.isVisible = !this.isVisible;
-    const actor = await this.getActor(personaje).then()
-    console.log('actor desplegado', actor)
   }
 
   delete(personaje: Personaje) {
     this.personajesService.delete(personaje)
   }
 
-  async getActor(personaje: Personaje) {
-    const actorEncontrado = await this.actoresService.getOneById(personaje.actor);
-    return actorEncontrado;
-  }
 
 }

@@ -4,7 +4,7 @@
         <div class="card" >
             <img (click)="onClick(personaje)" class="card-img-top"src="{{ personaje.imagen }}" alt="Pelicula 1 image">      
             <div class="card-body" >
-                <h6> {{ personaje.actor.id }} as {{personaje.nombrePersonaje}}</h6>
+                <h6 (click)="onClick(personaje)"> {{ personaje.actor.id }} as {{personaje.nombrePersonaje}}</h6>
                 <p class="desc-personaje"> {{personaje.descripcion.charAt(0).toUpperCase() + personaje.descripcion.slice(1)}}</p>
             <button (click)="delete(personaje)">Eliminar</button>
             <button (click)="onClick(personaje)">Ver ficha técnica</button>
@@ -14,7 +14,7 @@
         </div>
     </div>
     <div *ngIf="isVisible == true">
-        <app-actor-details></app-actor-details>
+        <app-actor-details [actorId]="personaje.actor.id"></app-actor-details>
 </div>
 </div>
 

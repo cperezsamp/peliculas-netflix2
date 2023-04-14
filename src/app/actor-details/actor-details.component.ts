@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ActoresService } from '../actores.service';
 import { Actor } from '../models/actor';
@@ -9,8 +9,8 @@ import { FormGroup, FormBuilder } from '@angular/forms';
   templateUrl: './actor-details.component.html',
   styleUrls: ['./actor-details.component.css'],
 })
-export class ActorDetailsComponent {
-  actorId: number;
+export class ActorDetailsComponent implements OnInit {
+  @Input() actorId: string;
   actor: Actor;
   editForm: FormGroup;
   isEditMode: boolean = false;
@@ -32,8 +32,7 @@ export class ActorDetailsComponent {
   }
 
   ngOnInit(): void {
-    this.actorId = this.route.snapshot.params['id'];
-    this.actor = this.actoresService.findOneById(this.actorId);
+    this.actoresService.findOneById(this.actorId).then((obj: any) => { this.actor = new Actor(obj.id, obj.nombre, obj.edad, obj.clip, obj.nacionalidad, obj.vivo, obj.imagen) });
     this.editForm.setValue({
       nombre: this.actor.nombre,
       edad: this.actor.edad,
