@@ -5,7 +5,6 @@ import { ActorDetailsComponent } from './actor-details/actor-details.component';
 
 const routes: Routes = [
   { path: '', component: PeliculasComponent },
-  { path: 'actor/:id', component: ActorDetailsComponent },
 ];
 
 

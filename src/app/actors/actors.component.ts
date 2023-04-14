@@ -15,34 +15,59 @@ export class ActorsComponent implements OnInit {
   @Input() pelicula: Pelicula;
 
   personajes: Personaje[];
-  //actores: Actor[];  //no creo que aqui necesite los actores
+  actores: Actor[];
   personajesPelicula: Personaje[];
   test: string[];
-  
+  isVisible: Boolean;
 
   constructor(private actoresService: ActoresService, private personajesService: PersonajesService) {
-    
   }
 
-  ngOnInit(): void{
+  ngOnInit(): void {
     this.loadPersonajes();
+    this.loadActores();
+    this.isVisible = false;
   }
 
-
-  loadPersonajes(){
+  loadPersonajes() {
     this.personajesService.getAll().subscribe(
       personajes => {
-        this.personajes= personajes;
-       }
+        this.personajes = personajes;
+      }
     )
   }
 
-  searchPersonajes(pelicula: Pelicula){
-    for( let personaje of this.personajes){
-      if(personaje.pelicula.id == pelicula.id){
-        this.personajesPelicula.push(personaje);
+  loadActores() {
+    this.actoresService.getAll().subscribe(
+      actores => {
+        this.actores = actores;
       }
-    }
+    )
+  }
+
+  /*   searchPersonajes(pelicula: Pelicula) {
+      this.loadPersonajes();
+      for (let personaje of this.personajes) {
+        if (personaje.pelicula.id == pelicula.id) {
+          this.personajesPelicula.push(personaje);
+        }
+      }
+    } */
+
+
+  async onClick(personaje: Personaje) {
+    this.isVisible = !this.isVisible;
+    const actor = await this.getActor(personaje).then()
+    console.log('actor desplegado', actor)
+  }
+
+  delete(personaje: Personaje) {
+    this.personajesService.delete(personaje)
+  }
+
+  async getActor(personaje: Personaje) {
+    const actorEncontrado = await this.actoresService.getOneById(personaje.actor);
+    return actorEncontrado;
   }
 
 }
