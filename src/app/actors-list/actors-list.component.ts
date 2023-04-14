@@ -7,40 +7,42 @@ import { Pelicula } from '../models/pelicula';
 
 
 @Component({
-  selector: 'app-actors',
-  templateUrl: './actors.component.html',
-  styleUrls: ['./actors.component.css']
+  selector: 'app-actors-list',
+  templateUrl: './actors-list.component.html',
+  styleUrls: ['./actors-list.component.css']
 })
-export class ActorsComponent implements OnInit {
-  @Input() personaje: Personaje;
+export class ActorsListComponent implements OnInit {
+  @Input() pelicula: Pelicula;
 
-
+  personajes: Personaje[];
+  actores: Actor[];
+  personajesPelicula: Personaje[];
+  test: string[];
   isVisible: Boolean; // TODO: No funciona, hay que ajustar para que cada personaje tenga su valor isVisible
   constructor(private actoresService: ActoresService, private personajesService: PersonajesService) {
   }
 
   ngOnInit(): void {
-    /*     this.loadPersonajes();
-        this.loadActores(); */
+    this.loadPersonajes();
+    this.loadActores();
     this.isVisible = false;
-    console.log('personaje in ACTOR component', this.personaje)
   }
 
-  /*  loadPersonajes() {
-     this.personajesService.getAll().subscribe(
-       personajes => {
-         this.personajes = personajes;
-       }
-     )
-   } */
+  loadPersonajes() {
+    this.personajesService.getAll().subscribe(
+      personajes => {
+        this.personajes = personajes;
+      }
+    )
+  }
 
-  /* loadActores() {
+  loadActores() {
     this.actoresService.getAll().subscribe(
       actores => {
         this.actores = actores;
       }
     )
-  } */
+  }
 
   /*   searchPersonajes(pelicula: Pelicula) {
       this.loadPersonajes();

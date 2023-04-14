@@ -1,0 +1,7 @@
+
+<div *ngFor="let personaje of personajes">
+    <div *ngIf=" personaje.pelicula.id == pelicula.id">
+        <app-actors [personaje]="personaje"></app-actors>
+</div>
+
+
