@@ -18,6 +18,7 @@ import { environment } from '../environments/environment';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { UploadfileComponent } from './uploadfile/uploadfile.component';
 import { provideStorage,getStorage } from '@angular/fire/storage';
+import { StorageService } from './storage.service';
 
 
 
@@ -44,7 +45,8 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
   providers: [
     ActoresService,
     PeliculasService,
-    PersonajesService
+    PersonajesService,
+    StorageService
 
   ],
   bootstrap: [AppComponent]

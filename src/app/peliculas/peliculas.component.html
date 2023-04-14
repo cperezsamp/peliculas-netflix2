@@ -35,7 +35,7 @@
                 <div  *ngFor=" let pelicula of peliculas" >
                     <div class="img-box row">
                         <div class="float-left col-5" >
-                            <img class="img-pelicula" src={{pelicula.image}} alt="Pelicula 1 image">
+                            <img class="img-pelicula" accept="file_type | iamge/*" src={{pelicula.image}} alt="Pelicula 1 image">
                             <p>Modificar imagen</p>
                             <app-uploadfile ></app-uploadfile>
                         </div>

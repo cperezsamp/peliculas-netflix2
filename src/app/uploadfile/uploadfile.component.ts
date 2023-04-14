@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Storage, ref, uploadBytes } from '@angular/fire/storage';
+import { Storage, listAll, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
 
 
 @Component({
@@ -13,7 +13,8 @@ export class UploadfileComponent {
 
   upload($event :any){
     const image= $event.target.files[0];
-    const reference= ref(this.storage, `assets/images/films/${image.name}`);
+    console.log(image);
+    const reference= ref(this.storage, `assets/images/films/${image.name}`);  //referencia a la imagen
     uploadBytes(reference, image)
     .then(
       //guardar response.fullPath en el campo imagen de la pelicula en la base de datos??
@@ -21,5 +22,7 @@ export class UploadfileComponent {
     )
     .catch(error => console.log(error))
   }
+
+  
     
 }
