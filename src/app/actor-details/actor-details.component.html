@@ -9,6 +9,7 @@
       src="{{ actor.imagen }}"
       alt="{{ actor.nombre }} image"
     />
+    <button class="btn btn-primary" (click)="editarActor()">Editar detalles</button>
   </div>
   <div class="desc-box col-7">
     <div class="row">
@@ -18,10 +19,53 @@
       </p>
       <ng-template #elseBlock>Edad: {{ actor.edad }}</ng-template>
       <p>Nacionalidad: {{ actor.nacionalidad }}</p>
-    </div>  
+    </div>
     <div class="row">
       <app-player [video]="actor.clip"></app-player>
-    </div>  
+    </div>
   </div>
 </section>
+</div>
+
+
+ <!-- Modal para editar detalles del actor -->
+<div class="modal fade" tabindex="-1" role="dialog" id="editarActorModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar detalles del actor</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" class="form-control" id="nombre" [(ngModel)]="actor.nombre">
+          </div>
+          <div class="form-group">
+            <label for="edad">Edad</label>
+            <input type="text" class="form-control" id="edad" [(ngModel)]="actor.edad">
+          </div>
+          <div class="form-group">
+            <label for="nacionalidad">Nacionalidad</label>
+            <input type="text" class="form-control" id="nacionalidad" [(ngModel)]="actor.nacionalidad">
+          </div>
+          <div class="form-group">
+            <label for="imagen">URL de la imagen</label>
+            <input type="text" class="form-control" id="imagen" [(ngModel)]="actor.imagen">
+          </div>
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="vivo" [(ngModel)]="actor.vivo">
+            <label class="form-check-label" for="vivo">¿Está vivo?</label>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="guardarCambios()">Guardar cambios</button>
+      </div>
+    </div>
+  </div>
 </div>
