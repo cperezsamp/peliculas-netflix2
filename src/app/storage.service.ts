@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Storage, listAll, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
+import { Storage, listAll, ref, uploadBytes, getDownloadURL, StorageReference } from '@angular/fire/storage';
+import { DomSanitizer } from '@angular/platform-browser';
+import { reduce } from 'rxjs';
 
 
 @Injectable({
@@ -7,23 +9,27 @@ import { Storage, listAll, ref, uploadBytes, getDownloadURL } from '@angular/fir
 })
 export class StorageService {
 
-  images: string[]= [];
 
-  constructor(private storage: Storage){ }
+  constructor(private storage: Storage, private sanitizer: DomSanitizer){ }
 
 
   //hay que impotar listAll para poder listar el contenido de la carpeta remota y getDownloadURL para poder ver la url de cada fichero
-  getAllImages(){
+  getAllImages(): StorageReference[]{
+    let imagesArray :StorageReference[]= [];
     const images= ref(this.storage, 'assets/images/films');
     listAll(images)
     .then( async response => {
-        this.images= [];
         for (let item of response.items){
-          const url =  await getDownloadURL(item);  //tiene que estar con a la espera para funcionar y la funcion anonima como async
-          this.images.push(url);
+          //const url =  await getDownloadURL(item);  //tiene que estar con a la espera para funcionar y la funcion anonima como async
+          imagesArray.push(item);
         }
       }
     ) 
     .catch( error => console.log(error))
-    }
+    return imagesArray;
+  }
+
+  
+
+
 }
