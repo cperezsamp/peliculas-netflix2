@@ -1,1 +1,13 @@
-<p>actors-form works!</p>
+<div class="form-group">
+    <label for="nombrePersonajeForm">Nombre Personaje</label>
+    <input type="text" placeholder="{{personaje.nombrePersonaje}}" class="form-control" id="nombrePersonajeForm"
+    required
+    [(ngModel)]="nombrePersonajeForm" nombrePersonaje="nombrePersonajeForm">
+
+    <label for="descripcionForm">Descripción</label>
+    <input type="text" placeholder="{{personaje.descripcion}}" class="form-control" id="descripcionForm"
+    required
+    [(ngModel)]="descripcionForm" descripcion="descripcionForm">
+    <button (click)="savePersonaje()">Guardar</button>
+
+  </div>

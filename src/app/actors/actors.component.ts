@@ -13,17 +13,17 @@ import { Pelicula } from '../models/pelicula';
 })
 export class ActorsComponent implements OnInit {
   @Input() personaje: Personaje;
+  actor?: Actor | null; // Añadido fallback a null para evitar un warning de consola
+  isVisible: Boolean;
+  isEditing: Boolean;
 
-
-  isVisible: Boolean; // TODO: No funciona, hay que ajustar para que cada personaje tenga su valor isVisible
   constructor(private actoresService: ActoresService, private personajesService: PersonajesService) {
   }
 
   ngOnInit(): void {
-    /*     this.loadPersonajes();
-        this.loadActores(); */
+    this.actoresService.findOneById(this.personaje.actor.id).then((obj: any) => { this.actor = new Actor(obj.id, obj.nombre, obj.edad, obj.clip, obj.nacionalidad, obj.vivo, obj.imagen) });
     this.isVisible = false;
-    console.log('personaje in ACTOR component', this.personaje)
+    this.isEditing = false;
   }
 
   /*  loadPersonajes() {
@@ -60,5 +60,8 @@ export class ActorsComponent implements OnInit {
     this.personajesService.delete(personaje)
   }
 
+  editPersonaje() {
+    this.isEditing = !this.isEditing
+  }
 
 }

@@ -1,21 +1,18 @@
 
-
-        <div class="card" >
-            <img (click)="onClick(personaje)" class="card-img-top"src="{{ personaje.imagen }}" alt="Pelicula 1 image">      
-            <div class="card-body" >
-                <h6 (click)="onClick(personaje)"> {{ personaje.actor.id }} as {{personaje.nombrePersonaje}}</h6>
-                <p class="desc-personaje"> {{personaje.descripcion.charAt(0).toUpperCase() + personaje.descripcion.slice(1)}}</p>
+<div class="card m-4">
+        <img (click)="onClick(personaje)" class="card-img-top"src="{{ personaje.imagen }}" alt="Pelicula 1 image">      
+        <div class="card-body" >
+            <h6 (click)="onClick(personaje)"> {{actor?.nombre}} as {{personaje.nombrePersonaje}}</h6>
+            <p class="desc-personaje"> {{personaje.descripcion.charAt(0).toUpperCase() + personaje.descripcion.slice(1)}}</p>
             <button (click)="delete(personaje)">Eliminar</button>
             <button (click)="onClick(personaje)">Ver ficha técnica</button>
-            <button (click)="onClick(personaje)">Editar</button>
-            
-            </div>
-            
+            <button (click)="editPersonaje()">Editar</button>
         </div>
 
-<!--     <div *ngIf="isEditMode== true">
-        <app-hero-form></app-hero-form>
-    </div> -->
+    <div *ngIf="isEditing == true">
+        <app-actors-form [personaje]= "personaje"></app-actors-form>
+    </div>
     <div *ngIf="isVisible == true">
         <app-actor-details [actorId]="personaje.actor.id"></app-actor-details>
+    </div>
 </div>

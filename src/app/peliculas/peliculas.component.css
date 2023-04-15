@@ -23,3 +23,8 @@
 .cast-row {
     margin-top: 40px;
 }
+
+
+.app-actors-list {
+    display: flex;
+}
