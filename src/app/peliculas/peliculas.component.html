@@ -35,9 +35,17 @@
                 <div  *ngFor=" let pelicula of peliculas" >
                     <div class="img-box row">
                         <div class="float-left col-5" >
-                            <img class="img-pelicula" accept="file_type | iamge/*" src={{pelicula.image}} alt="Pelicula 1 image">
+                            <div *ngIf="previsualizacion; else origin">
+                                <img class="img-pelicula"  [src]="previsualizacion" alt="Pelicula 1 image">
+                            </div>
+                            <ng-template #origin>
+                                <img class="img-pelicula"  src={{pelicula.image}} alt="Pelicula 1 image">
+                            </ng-template>
                             <p>Modificar imagen</p>
-                            <app-uploadfile ></app-uploadfile>
+                            <!--formulario para cambiar imagen-->
+                            <div class="mb-3">
+                                <input type="file" accept="file_type | iamge/*" (change)="previewFile($event)">
+                            </div>
                         </div>
                         
                         <div class="desc-box col-7">
@@ -66,13 +74,40 @@
                     <br><hr>
                 </div>
             </ng-template>
-            <button>Agrar pelicula</button>
+            
+            <button (click)="changeAgregar()">Agrar pelicula</button>
+            <!--Formulario agregacion nueva pelicula-->
+            <div *ngIf="agregar" class="img-box row">
+                <div class="float-left col-5" >
+                    <div *ngIf="previsualizacion">
+                        <img class="img-pelicula"  [src]="previsualizacion" alt="Pelicula 1 image">
+                    </div>
+                    <p>Agregar imagen</p>
+                    <!--formulario para cambiar imagen-->
+                    <div class="mb-3">
+                        <input type="file" accept="file_type | iamge/*" (change)="previewFile($event)">
+                    </div>
+                </div>
+                
+                <div class="desc-box col-7">
+                <label> Titulo:</label>
+                <input type="text" [(ngModel)]="newTitulo" name="newTitulo">
+                <label >Año</label>
+                <input type="number" [(ngModel)]="newAnyo" name="newAnyo">
+                <label >Duaracion horas</label>
+                <input type="number" [(ngModel)]="newDuracionH" name="newDuracionH">
+                <br>
+                <label>Duracion minutos</label> 
+                <input type="number" [(ngModel)]="newDuracionM" name="newDuracionM">
+                <h3 class="overview">Overview</h3>
+                <textarea [(ngModel)]="newOverview" name="newOverview" id="newOverview" cols="30" rows="10" >
+                  
+                </textarea>
+                </div>
+                <button >Guardar</button>
+                <button (click)="changeAgregar()" class="mt-3">Cancelar</button>
+            </div>            
+           
         </div>
 </div>
 </div>
-
-
-
-
-
-

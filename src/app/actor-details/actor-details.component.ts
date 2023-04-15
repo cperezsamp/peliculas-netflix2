@@ -53,7 +53,7 @@ export class ActorDetailsComponent {
       ...this.actor,
       ...this.editForm.value,
     };
-    this.actoresService.updateActor(this.actorId, updatedActor);
+    //this.actoresService.updateActor(this.actorId, updatedActor);
     this.actor = updatedActor;
     this.isEditMode = false;
   }
