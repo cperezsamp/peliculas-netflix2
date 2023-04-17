@@ -118,6 +118,17 @@ export class PeliculasComponent implements OnInit {
     }
   }
 
+  addPelicula(pelicula: Pelicula): void {
+    
+    if (this.previsualizacion != "") {
+      this.upload(this.imageForm, pelicula);
+    }
+    else {
+      this.peliculasService.add(pelicula);
+      this.edit();
+    }
+  }
+
   async addActor(value: any, pelicula: Pelicula) {
 
     //Primero crea el actor, y con la id generada del actor, se crea el personaje
@@ -170,8 +181,14 @@ export class PeliculasComponent implements OnInit {
                   (response) => {
                     pelicula.image = response
                     console.log(pelicula.image);
-                    this.peliculasService.update(pelicula);
-                    this.edit();
+                    if(!this.agregar){
+                      this.peliculasService.update(pelicula);
+                      this.edit();
+                    }
+                    else{
+                      this.peliculasService.add(pelicula);
+                      this.changeAgregar();
+                    }
                   }
                 )
                 .catch((error) => console.log(error))
@@ -232,4 +249,9 @@ export class PeliculasComponent implements OnInit {
     }
   })
 
+  agregarPelicula(){
+    //this.previsualizacion= "";
+    let newPelicula= new Pelicula(this.newTitulo, this.newDuracionM, this.newDuracionH, this.newAnyo, "", this.newOverview);
+    this.addPelicula(newPelicula);
+  }
 }

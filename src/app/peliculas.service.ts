@@ -17,7 +17,8 @@ export class PeliculasService {
   //añadir peliculas
   add(pelicula: Pelicula) {
     const coleccion = collection(this.firestore, 'peliculas');  //utilizamos el objeto collection para indicar la coleccion, recibe como argumento el objeto firestore inyectado y el nombre del documento
-    return addDoc(coleccion, pelicula); //con el objeto addDoc guardamos en la base de datos, recibe el nombre de la coleccion y el objeto a guardar
+    return addDoc(coleccion, {anyo: pelicula.anyo, argumento: pelicula.argumento, duracionHoras: pelicula.duracionHoras, duracionMinutos: pelicula.duracionMinutos, 
+    image: pelicula.image, titulo: pelicula.titulo} ); //con el objeto addDoc guardamos en la base de datos, recibe el nombre de la coleccion y el objeto a guardar
   }
 
   //obtener peliculas
