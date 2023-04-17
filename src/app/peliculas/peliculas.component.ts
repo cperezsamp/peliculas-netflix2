@@ -113,7 +113,6 @@ export class PeliculasComponent implements OnInit {
       this.upload(this.imageForm, pelicula);
     }
     else {
-      console.log("Tras upload");
       this.peliculasService.update(pelicula);
       this.edit();
     }
@@ -122,25 +121,25 @@ export class PeliculasComponent implements OnInit {
   async addActor(value: any, pelicula: Pelicula) {
 
     //Primero crea el actor, y con la id generada del actor, se crea el personaje
-    const newActor = {
+    const formValues = {
       nombre: value.newNombre,
-      vivo: value.newVivo,
+      vivo: value.newVivo === "true" && true,
       imagen: value.newImagenActor,
       clip: value.newClip,
       edad: value.newEdad,
       nacionalidad: value.newNacionalidad,
     };
-
-    const idnewActor = await this.actoresService.add(newActor);
+    const newActorRes = await this.actoresService.add(formValues);
+    const newActor = await this.actoresService.findOneById(newActorRes.id).then((obj: any) => new Actor(newActorRes.id, obj.nombre, obj.edad, obj.nacionalidad, obj.clip, obj.vivo, this.imageForm))
 
     const newPersonaje = {
       nombrePersonaje: value.newNombrePersonaje,
       descripcion: value.newDescripcion,
-      actor: `/actores/${idnewActor.id}`,
-      pelicula: `/peliculas/${pelicula.id}`,
+      actor: `/actores/${newActorRes.id}`, // Listado de personajes no actualiza si añades actor desde form porque la referencia harcoded no funciona. Hay que buscar la manera de convertir a Reference
+      pelicula: `/peliculas/${pelicula.id}`,  // Idem.Harcoded no funciona. Hay que buscar la manera de convertir a Reference
       imagen: value.newImagenActor,
     };
-
+    this.uploadImageActor(this.imageForm, newActor);
     this.personajesService.add(newPersonaje);
   }
 
@@ -148,7 +147,6 @@ export class PeliculasComponent implements OnInit {
   previewFile($event: any) {
     this.$event = $event;
     this.imageForm = this.$event.target.files[0];
-    console.log(this.imageForm);
     this.extractBase64(this.imageForm)
       .then(
         (imagen: any) => {
@@ -174,6 +172,33 @@ export class PeliculasComponent implements OnInit {
                     console.log(pelicula.image);
                     this.peliculasService.update(pelicula);
                     this.edit();
+                  }
+                )
+                .catch((error) => console.log(error))
+
+            }
+          }
+        }
+      )
+      .catch(error => console.log(error))
+  }
+
+
+  //sube la imagen al storage
+  async uploadImageActor(image: any, actor: Actor) {
+    const reference = ref(this.storage, `assets/images/films/${image.name}`);  //referencia a la imagen
+    uploadBytes(reference, image)
+      .then(
+        response => {
+          for (let image of this.imagesRefs) {
+            if (image.name == this.imageForm.name) {
+              getDownloadURL(image)
+                .then(
+                  (response) => {
+                    actor.imagen = response
+                    console.log('actor.imagen TRAS UPLOAD',);
+                    this.actoresService.update(actor);
+                    this.changeAgregarActor();
                   }
                 )
                 .catch((error) => console.log(error))

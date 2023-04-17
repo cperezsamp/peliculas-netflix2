@@ -31,6 +31,7 @@ export class ActorsListComponent implements OnInit {
   loadPersonajes() {
     this.personajesService.getAll().subscribe(
       personajes => {
+        console.log('this.personajes', personajes)
         this.personajes = personajes;
       }
     )
