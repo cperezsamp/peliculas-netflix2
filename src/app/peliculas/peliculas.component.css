@@ -38,4 +38,9 @@
 button {
     width: 120px;
     border-radius: 5px;
+    margin: 5px;
+}
+
+.new-actors-form {
+    margin: 40px 0px 20px 0px;
 }
