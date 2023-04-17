@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, collectionData, deleteDoc, doc, Firestore, updateDoc, getDoc } from '@angular/fire/firestore';
+import { addDoc, collection, collectionData, deleteDoc, doc, Firestore, updateDoc, getDoc, query, where, getDocs } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Actor } from './models/actor';
 
@@ -14,10 +14,12 @@ export class ActoresService {
 
   }
 
-  //añadir peliculas
-  add(actor: Actor) {
+
+  //añadir actores
+  async add(actor: object) {
     const coleccion = collection(this.firestore, 'actores');  //utilizamos el objeto collection para indicar la coleccion, recibe como argumento el objeto firestore inyectado y el nombre del documento
-    return addDoc(coleccion, actor); //con el objeto addDoc guardamos en la base de datos, recibe el nombre de la coleccion y el objeto a guardar
+    const docRef = await addDoc(coleccion, actor); //con el objeto addDoc guardamos en la base de datos, recibe el nombre de la coleccion y el objeto a guardar
+    return docRef;
   }
 
   //obtener peliculas
@@ -32,6 +34,17 @@ export class ActoresService {
     const docRef = doc(this.firestore, 'actores', id);
     const docSnap = await getDoc(docRef);
     const data = docSnap?.data()
+    return data
+  }
+
+  //Realizar una query sencilla con una propiedad y valor
+  async queryDoc(property: string, value: string) {
+    const q = query(collection(this.firestore, 'actores'), where(property, "==", value));
+    const querySnapshot = await getDocs(q);
+    let data = {};
+    querySnapshot.forEach((doc) => {
+      data = doc.data()
+    })
     return data
   }
 

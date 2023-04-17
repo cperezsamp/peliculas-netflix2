@@ -28,3 +28,14 @@
 .app-actors-list {
     display: flex;
 }
+
+.img-personaje {
+    border-radius: 0%;
+    object-fit: cover;
+    height: 250px;
+}
+
+button {
+    width: 120px;
+    border-radius: 5px;
+}
