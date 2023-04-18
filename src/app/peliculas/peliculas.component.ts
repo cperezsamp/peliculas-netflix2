@@ -76,6 +76,12 @@ export class PeliculasComponent implements OnInit {
   changeAgregar(): void {
     this.agregar = !this.agregar;
     this.previsualizacion = "";
+    this.newTitulo= "";
+    this.newAnyo = {} as number;
+    this.newAnyo= {} as number;
+    this.newDuracionH= {} as number;
+    this.newDuracionM= {} as number;
+    this.newOverview= "";
   }
 
   changeAgregarActor(): void {
@@ -254,5 +260,24 @@ export class PeliculasComponent implements OnInit {
     //this.previsualizacion= "";
     let newPelicula= new Pelicula(this.newTitulo, this.newDuracionM, this.newDuracionH, this.newAnyo, "", this.newOverview);
     this.addPelicula(newPelicula);
+  }
+
+  deletePelicula(pelicula: Pelicula){
+    let personajes: Personaje[];
+    this.personajesService.getAll().subscribe(
+      personajs =>{
+        personajes= personajs;
+        for(let personaje of personajes){
+          if(personaje.pelicula.id == pelicula.id){
+            alert("Elimine primero los personajes de la pelicula.")
+            return;
+          }
+          else{
+            this.peliculasService.delete(pelicula);
+          }
+        }
+      }
+    )
+    
   }
 }
