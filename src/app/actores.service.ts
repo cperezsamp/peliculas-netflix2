@@ -22,7 +22,7 @@ export class ActoresService {
     return docRef;
   }
 
-  //obtener peliculas
+  //obtener actores
   getAll(): Observable<Actor[]> {  //nos devolvera un observable que esta mirando el estado de la base de datos.
     const coleccion = collection(this.firestore, 'actores'); //indicamos la colecion
     return collectionData(coleccion, { idField: 'id' }) as Observable<Actor[]>;  //utilizamos el objeto collectionData que recupera datos, le indicamos la coleccion 
@@ -37,6 +37,11 @@ export class ActoresService {
     return data
   }
 
+  //obtener un actor por su id
+  getOneById(actor: Actor) {
+    return doc(this.firestore, `actores/${actor.id}`);
+  }
+
   //Realizar una query sencilla con una propiedad y valor
   async queryDoc(property: string, value: string) {
     const q = query(collection(this.firestore, 'actores'), where(property, "==", value));
@@ -48,13 +53,13 @@ export class ActoresService {
     return data
   }
 
-  //eliminar una pelicula
+  //eliminar un actor
   delete(actor: Actor) {
     const documento = doc(this.firestore, `actores/${actor.id}`); //indicamos el documento con el objeto doc. Este recibe como argumento el objeto firestore y una cadena formada por "nombre coleccion/identificador documento"
     return deleteDoc(documento); //eliminamos el documento anterior con el objeto deleteDoc
   }
 
-  //update pelicula, OK, ojo a las comillas, son acentos
+  //update actor, OK, ojo a las comillas, son acentos
   update(actor: Actor) {
     const documento = doc(this.firestore, `actores/${actor.id}`);
     console.log(actor);

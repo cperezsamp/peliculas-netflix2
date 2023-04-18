@@ -132,7 +132,7 @@ export class PeliculasComponent implements OnInit {
   async addActor(value: any, pelicula: Pelicula) {
 
     //Primero crea el actor, y con la id generada del actor, se crea el personaje
-    const formValues = {
+    const actorToFirestone = {
       nombre: value.newNombre,
       vivo: value.newVivo === "true" && true,
       imagen: value.newImagenActor,
@@ -140,17 +140,19 @@ export class PeliculasComponent implements OnInit {
       edad: value.newEdad,
       nacionalidad: value.newNacionalidad,
     };
-    const newActorRes = await this.actoresService.add(formValues);
-    const newActor = await this.actoresService.findOneById(newActorRes.id).then((obj: any) => new Actor(newActorRes.id, obj.nombre, obj.edad, obj.nacionalidad, obj.clip, obj.vivo, this.imageForm))
+    const res = await this.actoresService.add(actorToFirestone);
+    const actorFromFirestone = await this.actoresService.findOneById(res.id).then((obj: any) => new Actor(res.id, obj.nombre, obj.edad, obj.nacionalidad, obj.clip, obj.vivo, this.imageForm))
+    const actorRef = this.actoresService.getOneById(actorFromFirestone)
+    const peliculaRef = this.peliculasService.getOneById(pelicula)
 
     const newPersonaje = {
       nombrePersonaje: value.newNombrePersonaje,
       descripcion: value.newDescripcion,
-      actor: `/actores/${newActorRes.id}`, // Listado de personajes no actualiza si añades actor desde form porque la referencia harcoded no funciona. Hay que buscar la manera de convertir a Reference
-      pelicula: `/peliculas/${pelicula.id}`,  // Idem.Harcoded no funciona. Hay que buscar la manera de convertir a Reference
+      actor: actorRef,
+      pelicula: peliculaRef,
       imagen: value.newImagenActor,
     };
-    this.uploadImageActor(this.imageForm, newActor);
+    this.uploadImageActor(this.imageForm, actorFromFirestone);
     this.personajesService.add(newPersonaje);
   }
 
@@ -213,7 +215,6 @@ export class PeliculasComponent implements OnInit {
                 .then(
                   (response) => {
                     actor.imagen = response
-                    console.log('actor.imagen TRAS UPLOAD',);
                     this.actoresService.update(actor);
                     this.changeAgregarActor();
                   }
