@@ -1,6 +1,6 @@
 
 <div class="card m-4">
-        <img (click)="onClick(personaje)" class="card-img-top"src="{{ personaje.imagen }}" alt="Pelicula 1 image">      
+        <img (click)="onClick(personaje)" class="card-img-top" src="{{ personaje.imagen }}" alt="Pelicula 1 image">      
         <div class="card-body" >
             <h6 (click)="onClick(personaje)"> {{actor?.nombre}} as {{personaje.nombrePersonaje}}</h6>
             <p class="desc-personaje"> {{personaje.descripcion.charAt(0).toUpperCase() + personaje.descripcion.slice(1)}}</p>

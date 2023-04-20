@@ -29,9 +29,10 @@ export class PeliculasComponent implements OnInit {
   overviewForm: string;
   imageForm: any;
   $event: any;
+  $eventClip: any;
   previsualizacion: string = "";
   imagesRefs: StorageReference[];
-  //imageUrl: string;
+  clipsRefs: StorageReference[];
 
   //variables para enviar mensaje de comprobacion
 
@@ -46,7 +47,7 @@ export class PeliculasComponent implements OnInit {
   //variables formulario agregacion actor/personaje
   agregarActor: boolean = false;
   newNombre: string;
-  newClip: string;
+  newClip: any;
   newEdad: string;
   newImagenActor: string;
   newNacionalidad: string;
@@ -54,6 +55,7 @@ export class PeliculasComponent implements OnInit {
   newNombrePersonaje: string;
   newDescripcion: string;
   peliculaActor: string;
+  clipUrl: string;
 
   constructor(private peliculasService: PeliculasService, private actoresService: ActoresService, private personajesService: PersonajesService, private storage: Storage, private sanitizer: DomSanitizer, private storageService: StorageService) {
   }
@@ -67,6 +69,7 @@ export class PeliculasComponent implements OnInit {
       }
     )
     this.imagesRefs = this.storageService.getAllImages();
+    this.clipsRefs = this.storageService.getAllClips();
   }
 
   edit(): void {
@@ -141,16 +144,19 @@ export class PeliculasComponent implements OnInit {
   async addActor(value: any, pelicula: Pelicula) {
 
     //Primero crea el actor, y con la id generada del actor, se crea el personaje
-    const actorToFirestone = {
+    let actorToFirestone = {
       nombre: value.newNombre,
       vivo: value.newVivo === "true" && true,
       imagen: value.newImagenActor,
-      clip: value.newClip,
+      clip: "",
       edad: value.newEdad,
       nacionalidad: value.newNacionalidad,
     };
-    const res = await this.actoresService.add(actorToFirestone);
-    const actorFromFirestone = await this.actoresService.findOneById(res.id).then((obj: any) => new Actor(res.id, obj.nombre, obj.edad, obj.nacionalidad, obj.clip, obj.vivo, this.imageForm))
+    actorToFirestone.clip= this.newClip.name;
+    
+    
+    const res = await this.actoresService.add(actorToFirestone); 
+    const actorFromFirestone = await this.actoresService.findOneById(res.id).then((obj: any) => new Actor(res.id, obj.nombre, obj.edad, obj.clip, obj.nacionalidad, obj.vivo, this.imageForm))
     const actorRef = this.actoresService.getOneById(actorFromFirestone)
     const peliculaRef = this.peliculasService.getOneById(pelicula)
 
@@ -161,8 +167,9 @@ export class PeliculasComponent implements OnInit {
       pelicula: peliculaRef,
       imagen: value.newImagenActor,
     };
-    this.uploadImageActor(this.imageForm, actorFromFirestone);
-    this.personajesService.add(newPersonaje);
+    const idPersonaje= await this.personajesService.add(newPersonaje);
+    let createdPer= new Personaje(actorFromFirestone as Actor, pelicula, newPersonaje.nombrePersonaje, newPersonaje.descripcion, newPersonaje.imagen, idPersonaje.id);  
+    this.uploadImageActor(this.imageForm, actorFromFirestone, createdPer);
   }
 
   //previsualizacion de la imagen
@@ -180,8 +187,7 @@ export class PeliculasComponent implements OnInit {
 
   //sube la imagen al storage
   async upload(image: any, pelicula: Pelicula) {
-
-    const reference = ref(this.storage, `assets/images/films/${image.name}`);  //referencia a la imagen
+    const reference = ref(this.storage, `assets/images/films/${image.name}`);  //referencia a la imagen  o video
     uploadBytes(reference, image)
       .then(
         response => {
@@ -191,7 +197,6 @@ export class PeliculasComponent implements OnInit {
                 .then(
                   (response) => {
                     pelicula.image = response
-                    console.log(pelicula.image);
                     if(!this.agregar){
                       this.peliculasService.update(pelicula);
                       this.edit();
@@ -213,7 +218,7 @@ export class PeliculasComponent implements OnInit {
 
 
   //sube la imagen al storage
-  async uploadImageActor(image: any, actor: Actor) {
+  async uploadImageActor(image: any, actor: Actor, personaje: Personaje) {
     const reference = ref(this.storage, `assets/images/films/${image.name}`);  //referencia a la imagen
     uploadBytes(reference, image)
       .then(
@@ -223,8 +228,10 @@ export class PeliculasComponent implements OnInit {
               getDownloadURL(image)
                 .then(
                   (response) => {
-                    actor.imagen = response
+                    actor.imagen = response;
+                    personaje.imagen= response;
                     this.actoresService.update(actor);
+                    this.personajesService.update(personaje);
                     this.changeAgregarActor("");
                   }
                 )
@@ -237,6 +244,44 @@ export class PeliculasComponent implements OnInit {
       .catch(error => console.log(error))
   }
 
+  prepareClip($event: any) {
+    this.$eventClip = $event;
+    this.newClip = this.$eventClip.target.files[0];
+    this.extractBase64(this.newClip)
+    .then(
+      response => console.log(response)
+    )
+    .catch(
+      error => console.log(error)
+    )
+    console.log(this.newClip)
+  }
+
+  async uploadClip(clip: any, actor: Actor) {
+    const reference = ref(this.storage, `media/${clip.name}`);  //referencia a la imagen  o video
+    
+    uploadBytes(reference, clip)
+      .then(
+        response => {
+          for (let item of this.clipsRefs) {
+            if (item.name == this.newClip.name) {
+              getDownloadURL(item)
+                .then(
+                  (response) => {
+                    //actualizar el actor
+                    this.clipUrl= response;
+                    actor.clip= response;
+                    this.actoresService.update(actor);
+                  }
+                )
+                .catch((error) => console.log(error))
+
+            }
+          }
+        }
+      )
+      .catch(error => console.log(error))
+  }
   //pasa la imagen a base 64 para la previsualizacion
   extractBase64 = async ($event: any) => new Promise((resolve, reject) => {
     try {
