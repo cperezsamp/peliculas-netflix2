@@ -13,10 +13,10 @@
       </p>
       <ng-template #elseBlock>Edad: {{ actor.edad }}</ng-template>
       <p>Nacionalidad: {{ actor.nacionalidad }}</p>
-   
+
       <button class="btn btn-secondary" (click)="toggleEditMode()">Editar</button>
       <app-player [video]="actor.clip"></app-player>
-    
+
   </div>
 </div>
 
@@ -25,7 +25,7 @@
 
 <div *ngIf="isEditMode" class="" tabindex="-1" role="dialog" id="editarActorModal">
   <h5 class="modal-title">Editar detalles del actor</h5>
-      
+
   <form>
           <div class="form-group">
             <label for="nombre">Nombre</label>
@@ -47,7 +47,6 @@
             <input type="checkbox" class="form-check-input" id="vivo" [(ngModel)]="actor.vivo">
             <label class="form-check-label" for="vivo">¿Está vivo?</label>
           </div>
-          <button class="btn btn-primary" (click)="saveChanges()">Guardar</button>
+          <button class="btn btn-primary" (click)="saveActorDetails()">Guardar</button>
         </form>
 </div>
-
