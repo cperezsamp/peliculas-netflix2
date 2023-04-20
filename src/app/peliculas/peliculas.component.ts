@@ -93,6 +93,15 @@ export class PeliculasComponent implements OnInit {
     this.agregarActor = !this.agregarActor;
     this.previsualizacion = "";
     this.peliculaActor= titulo;
+    this.newNombre= "";
+    this.newClip= "";
+    this.newEdad= "";
+    this.newImagenActor= "";
+    this.newNacionalidad= "";
+    this.newVivo= "";
+    this.newNombrePersonaje= "";
+    this.newDescripcion= "";
+    this.peliculaActor= "";
   }
 
   editPelicula(pelicula: Pelicula): void {
