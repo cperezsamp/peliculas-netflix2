@@ -14,7 +14,7 @@
       <ng-template #elseBlock>Edad: {{ actor.edad }}</ng-template>
       <p>Nacionalidad: {{ actor.nacionalidad }}</p>
    
-    
+      <button class="btn btn-secondary" (click)="toggleEditMode()">Editar</button>
       <app-player [video]="actor.clip"></app-player>
     
   </div>
@@ -22,17 +22,11 @@
 
 
  <!-- Modal para editar detalles del actor -->
-<div class="modal fade" tabindex="-1" role="dialog" id="editarActorModal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Editar detalles del actor</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
+
+<div *ngIf="isEditMode" class="" tabindex="-1" role="dialog" id="editarActorModal">
+  <h5 class="modal-title">Editar detalles del actor</h5>
+      
+  <form>
           <div class="form-group">
             <label for="nombre">Nombre</label>
             <input type="text" class="form-control" id="nombre" [(ngModel)]="actor.nombre">
@@ -53,13 +47,7 @@
             <input type="checkbox" class="form-check-input" id="vivo" [(ngModel)]="actor.vivo">
             <label class="form-check-label" for="vivo">¿Está vivo?</label>
           </div>
+          <button class="btn btn-primary" (click)="saveChanges()">Guardar</button>
         </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <!--<button type="button" class="btn btn-primary" (click)="guardarCambios()">Guardar cambios</button>-->
-      </div>
-    </div>
-  </div>
 </div>
 

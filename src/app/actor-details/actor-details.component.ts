@@ -48,11 +48,14 @@ export class ActorDetailsComponent implements OnInit {
   }
 
   saveChanges() {
+
     const updatedActor: Actor = {
       ...this.actor,
       ...this.editForm.value,
     };
-    //this.actoresService.updateActor(this.actorId, updatedActor);
+
+    console.log('updatedActor', updatedActor) // updatedActor no compone bien los datos del formulario, por eso no se guarda 
+    this.actoresService.update(updatedActor);
     this.actor = updatedActor;
     this.isEditMode = false;
   }
