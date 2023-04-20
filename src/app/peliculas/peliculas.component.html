@@ -30,8 +30,8 @@
                         <button class="btn btn-primary" (click)="changeAgregarActor(pelicula.titulo)">Agregar Actor</button>
                       
                         <!--Formulario agregacion nuevo actor / personaje -->
-                        <div  class="new-actors-form">
-                            <form class="form row" #RegisterForm="ngForm" *ngIf="agregarActor && pelicula.titulo == peliculaActor" class="img-box row">
+                        <div  class="new-actors-form" >
+                            <form class="form row" #RegisterForm="ngForm" *ngIf="agregarActor" class="img-box row">
                                 <hr>
                                 <section class="col">
                                 <h2>Datos Actor</h2>
@@ -119,7 +119,7 @@
                         </textarea>
                         </div>
                         <button (click)="savePelicula(pelicula)">Guardar</button>
-                        <button  class="mt-3" (click)="editPelicula(pelicula)">Cancelar</button>
+                        <button  (click)="editPelicula(pelicula)">Cancelar</button>
                     </div>            
                     <br><hr>
                 </div>
@@ -155,7 +155,7 @@
                 </textarea>
                 </div>
                 <button (click)="agregarPelicula()">Guardar</button>
-                <button (click)="changeAgregar()" class="mt-3">Cancelar</button>
+                <button (click)="changeAgregar()">Cancelar</button>
             </div>            
            
             

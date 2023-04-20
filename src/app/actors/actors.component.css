@@ -5,10 +5,18 @@
     background-color: black;
 }
 
+.card-body {
+    color: white;
+}
+
 .card-img-top {
     border-radius: 0%;
     object-fit: cover;
     height: 250px;
+}
+
+.card-img-top:hover {
+    cursor: pointer;
 }
 
 a {
@@ -23,4 +31,30 @@ a:hover {
 
 .desc-personaje {
     font-weight: 100;
+}
+
+.card-actions {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.actor-button {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    width: 30px;
+}
+
+.actor-detail-box {
+    width: 100vh;
+    position: relative;
+    margin-top: 20px;
+}
+
+.close-actor-button {
+    position: absolute;
+    right: 0px;
+    background-color: transparent;
+    border: none;
 }
