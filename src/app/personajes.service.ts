@@ -42,7 +42,7 @@ export class PersonajesService {
   update(personaje: Personaje) {
     const documento = doc(this.firestore, `personajes/${personaje.id}`);
     console.log(personaje);
-    return updateDoc(documento, {nombrePresonaje: personaje.nombrePersonaje, imagen: personaje.imagen });
+    return updateDoc(documento, {nombrePresonaje: personaje.nombrePersonaje, imagen: personaje.imagen, descripcion: personaje.descripcion });
   }
 
 
