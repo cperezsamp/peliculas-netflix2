@@ -53,6 +53,7 @@ export class PeliculasComponent implements OnInit {
   newVivo: string;
   newNombrePersonaje: string;
   newDescripcion: string;
+  peliculaActor: string;
 
   constructor(private peliculasService: PeliculasService, private actoresService: ActoresService, private personajesService: PersonajesService, private storage: Storage, private sanitizer: DomSanitizer, private storageService: StorageService) {
   }
@@ -82,11 +83,13 @@ export class PeliculasComponent implements OnInit {
     this.newDuracionH= {} as number;
     this.newDuracionM= {} as number;
     this.newOverview= "";
+
   }
 
-  changeAgregarActor(): void {
+  changeAgregarActor(titulo: string): void {
     this.agregarActor = !this.agregarActor;
     this.previsualizacion = "";
+    this.peliculaActor= titulo;
   }
 
   editPelicula(pelicula: Pelicula): void {
@@ -222,7 +225,7 @@ export class PeliculasComponent implements OnInit {
                   (response) => {
                     actor.imagen = response
                     this.actoresService.update(actor);
-                    this.changeAgregarActor();
+                    this.changeAgregarActor("");
                   }
                 )
                 .catch((error) => console.log(error))

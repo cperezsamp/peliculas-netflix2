@@ -27,11 +27,11 @@
                         <h3>Cast</h3>
                         <!--<app-actors class="col-2 m-4" *ngFor="let personaje of pelicula.personajes" [personaje]="personaje"></app-actors>-->
                         <app-actors-list class="app-actors-list" [pelicula]="pelicula"></app-actors-list>
-                        <button class="btn btn-primary" (click)="changeAgregarActor()">Agregar Actor</button>
+                        <button class="btn btn-primary" (click)="changeAgregarActor(pelicula.titulo)">Agregar Actor</button>
                       
                         <!--Formulario agregacion nuevo actor / personaje -->
-                        <div  class="new-actors-form" *ngFor=" let pelicula of peliculas" >
-                            <form class="form row" #RegisterForm="ngForm" *ngIf="agregarActor" class="img-box row">
+                        <div  class="new-actors-form">
+                            <form class="form row" #RegisterForm="ngForm" *ngIf="agregarActor && pelicula.titulo == peliculaActor" class="img-box row">
                                 <hr>
                                 <section class="col">
                                 <h2>Datos Actor</h2>
@@ -77,7 +77,7 @@
 
                                 <section class="col">
                                     <button class="btn btn-primary" (click)="addActor(RegisterForm.value, pelicula)">Guardar</button>
-                                    <button class="btn btn-secondary" (click)="changeAgregarActor()">Cancelar</button>
+                                    <button class="btn btn-secondary" (click)="changeAgregarActor(pelicula.titulo)">Cancelar</button>
                                 </section>
                             </form>
                             </div>
