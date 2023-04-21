@@ -28,10 +28,18 @@ export class BuscadorComponent {
     this.edadMaxima = 150;
     this.nacionalidad = "";
     this.write = false;
-    this.actores = actoresService.actores;
+    this.getActores;
     this.icon = "../assets/images/icons/down-arrow.png";
   }
 
+  async getActores(){
+    this.actoresService.getAll().subscribe(
+      response =>{
+        //console.log(response);
+        this.actores= response;
+      }
+    );
+  }
   changeDesplegable() {
     if (this.desplegable) {
       this.desplegable = false;

@@ -11,11 +11,20 @@ export class BuscadorPipe implements PipeTransform {
   actores: Actor[];
 
   constructor(private actoresService: ActoresService) {
-    this.actores = actoresService.actores;
+    //this.getActores();
   }
 
 
+  async getActores(){
+    this.actoresService.getAll().subscribe(
+      response => {
+        this.actores= response;
+      }
+    )
+    console.log(this.actores);
+  }
   transform(value: any, ...args: any[]): any {
+    this.getActores();
     const result = [];
     for (let actor of value) {
       if ((actor.nombre.toUpperCase()).includes(args[0].toUpperCase()) && (actor.edad > args[1] && actor.edad < args[2]) && (actor.nacionalidad.toUpperCase()).includes(args[3].toUpperCase())) {
