@@ -41,8 +41,7 @@ export class PersonajesService {
   //update personaje, OK, ojo a las comillas, son acentos
   update(personaje: Personaje) {
     const documento = doc(this.firestore, `personajes/${personaje.id}`);
-    console.log(personaje);
-    return updateDoc(documento, {nombrePresonaje: personaje.nombrePersonaje, imagen: personaje.imagen, descripcion: personaje.descripcion });
+    return updateDoc(documento, { nombrePersonaje: personaje.nombrePersonaje, imagen: personaje.imagen, descripcion: personaje.descripcion });
   }
 
 

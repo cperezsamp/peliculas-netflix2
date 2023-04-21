@@ -13,6 +13,7 @@
       </p>
       <ng-template #elseBlock>Edad: {{ actor.edad }}</ng-template>
       <p>Nacionalidad: {{ actor.nacionalidad }}</p>
+      <p>¿Está vivo? {{ actor.vivo  }}</p>
 
       <button class="btn btn-secondary" (click)="toggleEditMode()">Editar</button>
       <app-player [video]="actor.clip"></app-player>
@@ -28,25 +29,34 @@
 
   <form>
           <div class="form-group">
-            <label for="nombre">Nombre</label>
-            <input type="text" class="form-control" id="nombre" [(ngModel)]="actor.nombre">
+            <label >Nombre</label>
+            <input type="text" placeholder="{{actor.nombre}}" class="form-control" [(ngModel)]="nombreForm" name="nombreForm" >
           </div>
           <div class="form-group">
-            <label for="edad">Edad</label>
-            <input type="text" class="form-control" id="edad" [(ngModel)]="actor.edad">
+            <label>Edad</label>
+            <input type="number" placeholder="{{actor.edad}}"  class="form-control" [(ngModel)]="edadForm" name="edadForm">
           </div>
           <div class="form-group">
-            <label for="nacionalidad">Nacionalidad</label>
-            <input type="text" class="form-control" id="nacionalidad" [(ngModel)]="actor.nacionalidad">
+            <label for="nacionalidadForm">Nacionalidad</label>
+            <input type="text" placeholder="{{actor.nacionalidad}}" class="form-control" [(ngModel)]="nacionalidadForm" name="nacionalidadForm">
           </div>
           <div class="form-group">
             <label for="imagen">URL de la imagen</label>
-            <input type="text" class="form-control" id="imagen" [(ngModel)]="actor.imagen">
+            <input type="text" placeholder="{{actor.imagen}}" [(ngModel)]="imagenForm" name="imagenForm" >
           </div>
-          <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="vivo" [(ngModel)]="actor.vivo">
-            <label class="form-check-label" for="vivo">¿Está vivo?</label>
+          <div class="form-group">
+            <label for="imagen">URL del clip</label>
+            <input type="text" placeholder="{{actor.clip}}" [(ngModel)]="clipForm" name="clipForm" >
           </div>
+         <div class="form-group">
+            <p> ¿Está vivo? </p>
+            <input type="radio" id="vivo" [(ngModel)]="vivoForm" name="vivoForm" value=true checked="{{actor.vivo}}">                              
+            <label> Verdadero </label><br/>
+
+            <input type="radio" id="vivo" [(ngModel)]="vivoForm" name="vivoForm" value=false checked="{{!actor.vivo}}"> 
+            <label>falso</label><br>
+
+          </div>   
           <button class="btn btn-primary" (click)="saveActorDetails()">Guardar</button>
         </form>
 </div>

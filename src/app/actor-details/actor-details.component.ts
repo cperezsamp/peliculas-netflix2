@@ -24,9 +24,6 @@ export class ActorDetailsComponent implements OnInit {
   constructor(
     private actoresService: ActoresService,
     private formBuilder: FormBuilder
-
-
-
   ) {
     /*this.editForm = this.formBuilder.group({
     nombre: [''],
@@ -36,21 +33,22 @@ export class ActorDetailsComponent implements OnInit {
     clip: [''],
     vivo: [false],
   });*/
-}
+  }
 
   ngOnInit(): void {
-    this.actoresService.findOneById(this.actorId).then((obj: any) => { this.actor = new Actor(obj.id, obj.nombre, obj.edad, obj.clip, obj.nacionalidad, obj.vivo, obj.imagen) });
-this.editForm.setValue({
+    this.actoresService.findOneById(this.actorId).then((obj: any) => {
+      this.actor =
+        new Actor(this.actorId, obj.nombre, obj.edad, obj.clip, obj.nacionalidad, obj.vivo, obj.imagen)
+      this.nombreForm = obj.nombre;
+      this.edadForm = obj.edad;
+      this.nacionalidadForm = obj.nacionalidad;
+      this.imagenForm = obj.imagen;
+      this.clipForm = obj.clip;
+      this.vivoForm = obj.vivo;
+    });
+  }
 
-  nombreForm : this.actor.nombre,
-  edadForm : this.actor.edad,
-  nacionalidadForm :  this.actor.nacionalidad,
-  imagenForm : this.actor.imagen,
-  clipForm : this.actor.clip,
-  vivoForm : this.actor.vivo
-})
 
-}
 
   toggleEditMode() {
     this.isEditMode = !this.isEditMode;
@@ -79,5 +77,6 @@ this.editForm.setValue({
       this.actor.vivo = this.vivoForm;
     }
     this.actoresService.update(this.actor);
+    this.toggleEditMode()
   }
 }
