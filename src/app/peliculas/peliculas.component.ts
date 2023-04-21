@@ -170,6 +170,7 @@ export class PeliculasComponent implements OnInit {
     const idPersonaje= await this.personajesService.add(newPersonaje);
     let createdPer= new Personaje(actorFromFirestone as Actor, pelicula, newPersonaje.nombrePersonaje, newPersonaje.descripcion, newPersonaje.imagen, idPersonaje.id);  
     this.uploadImageActor(this.imageForm, actorFromFirestone, createdPer);
+    this.uploadClip(this.newClip, actorFromFirestone);
   }
 
   //previsualizacion de la imagen
@@ -268,7 +269,7 @@ export class PeliculasComponent implements OnInit {
               getDownloadURL(item)
                 .then(
                   (response) => {
-                    //actualizar el actor
+                    console.log("En upload image: ", response)
                     this.clipUrl= response;
                     actor.clip= response;
                     this.actoresService.update(actor);
