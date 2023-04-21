@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActoresService } from '../actores.service';
 
 
 @Component({
@@ -9,8 +10,25 @@ import { Component, Input } from '@angular/core';
 
 
 
-export class PlayerComponent {
-  
-  @Input() video: string;
+export class PlayerComponent implements OnInit {
+
+  @Input() actorId: string;
+  video: string;
+  isVideoLoaded: boolean;
+
+  constructor(private actoresService: ActoresService) {
+    this.isVideoLoaded = false;
+  }
+
+  ngOnInit() {
+    this.actoresService.findOneById(this.actorId).then((obj: any) => {
+      if (obj.clip.includes("firebasestorage")) {
+        this.video = obj.clip;
+      } else {
+        this.video = `../assets/media/${obj.clip}`;
+      }
+      this.isVideoLoaded = true
+    });
+  }
 
 }
