@@ -228,7 +228,7 @@ export class PeliculasComponent implements OnInit {
 
   //sube la imagen al storage
   async uploadImageActor(image: any, actor: Actor, personaje: Personaje) {
-    const reference = ref(this.storage, `assets/images/films/${image.name}`);  //referencia a la imagen
+    const reference = ref(this.storage, `assets/images/actors/${image.name}`);  //referencia a la imagen
     uploadBytes(reference, image)
       .then(
         response => {
