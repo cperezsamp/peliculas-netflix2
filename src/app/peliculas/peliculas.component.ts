@@ -228,11 +228,16 @@ export class PeliculasComponent implements OnInit {
 
   //sube la imagen al storage
   async uploadImageActor(image: any, actor: Actor, personaje: Personaje) {
-    const reference = ref(this.storage, `assets/images/actors/${image.name}`);  //referencia a la imagen
+    const reference = ref(this.storage, `assets/images/films/${image.name}`);  //referencia a la imagen
     uploadBytes(reference, image)
       .then(
         response => {
-          for (let image of this.imagesRefs) {
+          console.log("IMAGES REF ORIGIN: ",this.imagesRefs);
+          let imagesref= this.storageService.getAllImages();
+          console.log("IMAGES REF NEW: ", imagesref);
+          for (let image of imagesref) {
+            console.log("IMAGE NAME: ", image.name);
+            console.log("IMAGE FROM: ", this.imageForm.name);
             if (image.name == this.imageForm.name) {
               getDownloadURL(image)
                 .then(

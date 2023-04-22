@@ -73,6 +73,9 @@
             },
             "development": {
               "browserTarget": "peliculas-netflix:build:development"
+            },
+            "options": {
+              "disableHostCheck": true
             }
           },
           "defaultConfiguration": "development"

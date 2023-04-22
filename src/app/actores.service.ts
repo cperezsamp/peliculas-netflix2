@@ -62,7 +62,7 @@ export class ActoresService {
   //update actor, OK, ojo a las comillas, son acentos
   update(actor: Actor) {
     const documento = doc(this.firestore, `actores/${actor.id}`);
-    return updateDoc(documento, { ...actor });
+    return updateDoc(documento, { clip: actor.clip, edad: actor.edad, imagen: actor.imagen, nacionalidad: actor.nacionalidad, nombre: actor.nombre, vivo: actor.vivo });
   }
 
 
