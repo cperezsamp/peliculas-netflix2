@@ -45,9 +45,9 @@
             <input type="text" placeholder="{{actor.imagen}}" [(ngModel)]="imagenForm" name="imagenForm" >
           </div>
           <div class="form-group">
-            <label for="imagen">URL del clip</label>
-            <input type="text" placeholder="{{actor.clip}}" [(ngModel)]="clipForm" name="clipForm" >
-          </div>
+            <label >Clip</label><br/>
+            <input type="file" [(ngModel)]="clipForm" (change)="prepareClip($event)" name="clipForm">
+        </div>
          <div class="form-group">
             <p> ¿Está vivo? </p>
             <input type="radio" id="vivo" [(ngModel)]="vivoForm" name="vivoForm" value=true checked="{{actor.vivo}}">                              
