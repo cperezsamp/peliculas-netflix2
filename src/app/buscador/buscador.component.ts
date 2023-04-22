@@ -28,7 +28,7 @@ export class BuscadorComponent {
     this.edadMaxima = 150;
     this.nacionalidad = "";
     this.write = false;
-    this.getActores;
+    this.getActores();
     this.icon = "../assets/images/icons/down-arrow.png";
   }
 
