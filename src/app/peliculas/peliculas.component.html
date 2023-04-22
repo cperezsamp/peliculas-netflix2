@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label >Clip</label><br/>
-                                    <input type="file" accept="video/*" (change)="prepareClip($event)" name="newClip">
+                                    <input type="file" [(ngModel)]="newClip" (change)="prepareClip($event)" name="newClip">
                                 </div>
                                 <div class="form-group">
                                     <label >Edad</label><br/>
@@ -58,11 +58,11 @@
                                 <div class="form-group">
                                     <label >Vivo</label><br/>
                                     <input type="radio" id="vivo" [(ngModel)]="newVivo" name="newVivo" value=true>
-                                    <label for="vivo">verdadero</label><br>
+                                        <label for="vivo">verdadero</label><br>
                                     <input type="radio" id="fallecido" [(ngModel)]="newVivo" name="newVivo" value=false>
-                                    <label for="fallecido">falso</label><br>
+                                        <label for="fallecido">falso</label><br>
                                 </div>   
-                             </section> 
+                                </section>
                                 <section class="col">
                                     <h2>Datos Personaje</h2>
                                     <div class="form-group">

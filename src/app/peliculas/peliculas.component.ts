@@ -33,7 +33,6 @@ export class PeliculasComponent implements OnInit {
   previsualizacion: string = "";
   imagesRefs: StorageReference[];
   clipsRefs: StorageReference[];
-
   //variables para enviar mensaje de comprobacion
 
   //variables formulario agregacion pelicula
@@ -80,30 +79,30 @@ export class PeliculasComponent implements OnInit {
   changeAgregar(): void {
     this.agregar = !this.agregar;
     this.previsualizacion = "";
-    this.newTitulo= "";
+    this.newTitulo = "";
     this.newAnyo = {} as number;
-    this.newAnyo= {} as number;
-    this.newDuracionH= {} as number;
-    this.newDuracionM= {} as number;
-    this.newOverview= "";
+    this.newAnyo = {} as number;
+    this.newDuracionH = {} as number;
+    this.newDuracionM = {} as number;
+    this.newOverview = "";
 
   }
 
   changeAgregarActor(titulo: string): void {
     this.agregarActor = !this.agregarActor;
     this.previsualizacion = "";
-    this.peliculaActor= titulo;
+    this.peliculaActor = titulo;
     console.log(this.peliculaActor == titulo);
     console.log(titulo);
-    this.newNombre= "";
-    this.newClip= "";
-    this.newEdad= "";
-    this.newImagenActor= "";
-    this.newNacionalidad= "";
-    this.newVivo= "";
-    this.newNombrePersonaje= "";
-    this.newDescripcion= "";
-    this.peliculaActor= "";
+    this.newNombre = "";
+    this.newClip = "";
+    this.newEdad = "";
+    this.newImagenActor = "";
+    this.newNacionalidad = "";
+    this.newVivo = "";
+    this.newNombrePersonaje = "";
+    this.newDescripcion = "";
+    this.peliculaActor = "";
   }
 
   editPelicula(pelicula: Pelicula): void {
@@ -142,7 +141,7 @@ export class PeliculasComponent implements OnInit {
   }
 
   addPelicula(pelicula: Pelicula): void {
-    
+
     if (this.previsualizacion != "") {
       this.upload(this.imageForm, pelicula);
     }
@@ -159,14 +158,12 @@ export class PeliculasComponent implements OnInit {
       nombre: value.newNombre,
       vivo: value.newVivo === "true" && true,
       imagen: value.newImagenActor,
-      clip: "",
+      clip: this.newClip.name,
       edad: value.newEdad,
       nacionalidad: value.newNacionalidad,
     };
-    actorToFirestone.clip= this.newClip.name;
-    
-    
-    const res = await this.actoresService.add(actorToFirestone); 
+
+    const res = await this.actoresService.add(actorToFirestone);
     const actorFromFirestone = await this.actoresService.findOneById(res.id).then((obj: any) => new Actor(res.id, obj.nombre, obj.edad, obj.clip, obj.nacionalidad, obj.vivo, this.imageForm))
     const actorRef = this.actoresService.getOneById(actorFromFirestone)
     const peliculaRef = this.peliculasService.getOneById(pelicula)
@@ -178,8 +175,8 @@ export class PeliculasComponent implements OnInit {
       pelicula: peliculaRef,
       imagen: value.newImagenActor,
     };
-    const idPersonaje= await this.personajesService.add(newPersonaje);
-    let createdPer= new Personaje(actorFromFirestone as Actor, pelicula, newPersonaje.nombrePersonaje, newPersonaje.descripcion, newPersonaje.imagen, idPersonaje.id);  
+    const idPersonaje = await this.personajesService.add(newPersonaje);
+    let createdPer = new Personaje(actorFromFirestone as Actor, pelicula, newPersonaje.nombrePersonaje, newPersonaje.descripcion, newPersonaje.imagen, idPersonaje.id);
     this.uploadImageActor(this.imageForm, actorFromFirestone, createdPer);
     this.uploadClip(this.newClip, actorFromFirestone);
   }
@@ -209,11 +206,11 @@ export class PeliculasComponent implements OnInit {
                 .then(
                   (response) => {
                     pelicula.image = response
-                    if(!this.agregar){
+                    if (!this.agregar) {
                       this.peliculasService.update(pelicula);
                       this.edit();
                     }
-                    else{
+                    else {
                       this.peliculasService.add(pelicula);
                       this.changeAgregar();
                     }
@@ -241,7 +238,7 @@ export class PeliculasComponent implements OnInit {
                 .then(
                   (response) => {
                     actor.imagen = response;
-                    personaje.imagen= response;
+                    personaje.imagen = response;
                     this.actoresService.update(actor);
                     this.personajesService.update(personaje);
                     this.changeAgregarActor("");
@@ -260,18 +257,16 @@ export class PeliculasComponent implements OnInit {
     this.$eventClip = $event;
     this.newClip = this.$eventClip.target.files[0];
     this.extractBase64(this.newClip)
-    .then(
-      response => console.log(response)
-    )
-    .catch(
-      error => console.log(error)
-    )
-    console.log(this.newClip)
+      .then(
+        response => console.log(response)
+      )
+      .catch(
+        error => console.log(error)
+      )
   }
 
   async uploadClip(clip: any, actor: Actor) {
     const reference = ref(this.storage, `media/${clip.name}`);  //referencia a la imagen  o video
-    
     uploadBytes(reference, clip)
       .then(
         response => {
@@ -280,9 +275,8 @@ export class PeliculasComponent implements OnInit {
               getDownloadURL(item)
                 .then(
                   (response) => {
-                    console.log("En upload image: ", response)
-                    this.clipUrl= response;
-                    actor.clip= response;
+                    this.clipUrl = response;
+                    actor.clip = response;
                     this.actoresService.update(actor);
                   }
                 )
@@ -316,28 +310,28 @@ export class PeliculasComponent implements OnInit {
     }
   })
 
-  agregarPelicula(){
+  agregarPelicula() {
     //this.previsualizacion= "";
-    let newPelicula= new Pelicula(this.newTitulo, this.newDuracionM, this.newDuracionH, this.newAnyo, "", this.newOverview);
+    let newPelicula = new Pelicula(this.newTitulo, this.newDuracionM, this.newDuracionH, this.newAnyo, "", this.newOverview);
     this.addPelicula(newPelicula);
   }
 
-  deletePelicula(pelicula: Pelicula){
+  deletePelicula(pelicula: Pelicula) {
     let personajes: Personaje[];
     this.personajesService.getAll().subscribe(
-      personajs =>{
-        personajes= personajs;
-        for(let personaje of personajes){
-          if(personaje.pelicula.id == pelicula.id){
+      personajs => {
+        personajes = personajs;
+        for (let personaje of personajes) {
+          if (personaje.pelicula.id == pelicula.id) {
             alert("Elimine primero los personajes de la pelicula.")
             return;
           }
-          else{
+          else {
             this.peliculasService.delete(pelicula);
           }
         }
       }
     )
-    
+
   }
 }
